@@ -1,10 +1,31 @@
+const path=require('path');
 module.exports = {
+    mode: 'development',
     entry: {
-        app: './src/App.jsx'
+        app: './src/App.jsx',
+        vendor: [
+            'react',
+            'react-dom',
+            'react-bootstrap',
+            'react-router-bootstrap'
+        ]
     },
     output: {
         path: `${__dirname}/static`,
-        filename: 'app.bundle.js'
+        filename: '[name].bundle.js'
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                vendor: {
+                    chunks: "initial",
+                    test: path.resolve(__dirname, "node_modules"),
+                    name: "vendor",
+                    enforce: true
+                }
+            }
+        }
     },
     module: {
         rules: [
@@ -16,14 +37,6 @@ module.exports = {
                     presets: ['es2015', 'react']
                 }
             },
-            {
-                test: /\.css$/,
-                loader: "style-loader!css-loader"
-            },
-            {
-                test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-                loader: 'file-loader'
-            }
         ]
     },
     devtool: 'source-map'
