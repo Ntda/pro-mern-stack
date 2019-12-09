@@ -1,10 +1,16 @@
 const express=require('express');
-const app=express();
+const bodyParser=require('body-parser');
+const app = express();
 
-app.listen(3000,()=>{
-    console.log('Server start at port: 3000');
+app.use(bodyParser.json());
+
+app.post('/',(req,res)=>{
+    const info=req.body;
+    console.log(req);
+    info.description='info';
+    res.json(info);
 });
 
-app.get('/',(req,res)=>{
-    res.json('Return json')
+app.listen(3000, () => {
+    console.log('Server start at port: 3000');
 });
