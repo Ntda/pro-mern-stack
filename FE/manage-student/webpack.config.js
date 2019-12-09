@@ -7,7 +7,8 @@ module.exports = {
             'react',
             'react-dom',
             'react-bootstrap',
-            'react-router-bootstrap'
+            'react-router-bootstrap',
+            'react-datepicker'
         ]
     },
     output: {
@@ -34,10 +35,24 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react'],
+                    plugins: ['transform-class-properties']
                 }
             },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+              },
         ]
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
+    devServer:{
+        port:8000,
+        contentBase:'static',
+        proxy:{
+            '/api/*':{
+                target:'http://localhost:3000'
+            }
+        }
+    }
 };

@@ -1,34 +1,35 @@
-import { Nav, NavDropdown}  from 'react-bootstrap'
-import React from 'react'
+import { Button } from 'react-bootstrap';
+import React from 'react';
+import AddNew from './AddNew.jsx';
+import uuid from 'uuid';
 
-function Header() {
-    const handleSelect = eventKey => alert(`selected ${eventKey}`);
-    return (
-        <Nav variant="pills" activeKey="1" onSelect={handleSelect}>
-            <Nav.Item>
-                <Nav.Link eventKey="1" href="#/home">
-                    NavLink 1 content
-        </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="2" title="Item">
-                    NavLink 2 content
-        </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="3" disabled>
-                    NavLink 3 content
-        </Nav.Link>
-            </Nav.Item>
-            <NavDropdown title="Dropdown" id="nav-dropdown">
-                <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item eventKey="4.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
-        </Nav>
-    );
+class Header extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            canAdd: false
+        };
+        
+    }
+
+    activeModal = () => {
+        this.setState({
+            canAdd: true
+        }, () =>
+            console.log('Active model')
+        );
+    }
+
+    render() {
+        const { canAdd } = this.state;
+        const { activeModal } = this;
+        return (
+            <React.Fragment>
+                <Button variant="success" active onClick={activeModal}>Add</Button>
+                {canAdd && <AddNew key={uuid.v4()}/>}
+            </React.Fragment>
+        )
+    }
 }
 
 export default Header;

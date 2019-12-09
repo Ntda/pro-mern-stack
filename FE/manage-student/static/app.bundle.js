@@ -155,6 +155,213 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/AddNew.jsx":
+/*!************************!*\
+  !*** ./src/AddNew.jsx ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+
+var _reactDatepicker = __webpack_require__(/*! react-datepicker */ "./node_modules/react-datepicker/dist/react-datepicker.min.js");
+
+var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
+
+__webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ "./node_modules/react-datepicker/dist/react-datepicker.css");
+
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddNew = function (_React$Component) {
+    _inherits(AddNew, _React$Component);
+
+    function AddNew() {
+        _classCallCheck(this, AddNew);
+
+        var _this = _possibleConstructorReturn(this, (AddNew.__proto__ || Object.getPrototypeOf(AddNew)).call(this));
+
+        _this.handleDateChange = function (date) {
+            _this.setState({
+                date: date
+            });
+        };
+
+        _this.onSave = function () {
+            var elements = document.getElementById('add-new').elements;
+            var name = elements.name.value;
+            var address = elements.address.value;
+            var sex = void 0;
+            for (var i = 0; i < elements.sex.length; i++) {
+                if (elements.sex[i].checked) {
+                    sex = elements.sex[i].value;
+                    break;
+                }
+            }
+            var date = elements.dateofbirth.value;
+            var model = {
+                name: name,
+                address: address,
+                sex: sex,
+                date: date
+            };
+            _axios2.default.post('http://localhost:3000/api/add-new', { model: model });
+        };
+
+        _this.state = {
+            show: true,
+            date: new Date(),
+            namevalid: true,
+            addressvalid: true
+        };
+        _this.handleDateChange = _this.handleDateChange.bind(_this);
+        _this.onSave = _this.onSave.bind(_this);
+        return _this;
+    }
+
+    _createClass(AddNew, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _state = this.state,
+                date = _state.date,
+                namevalid = _state.namevalid,
+                addressvalid = _state.addressvalid;
+
+            return _react2.default.createElement(
+                _reactBootstrap.Modal,
+                {
+                    show: this.state.show,
+                    onHide: function onHide() {
+                        return _this2.onSave();
+                    },
+                    centered: true,
+                    size: 'lg',
+                    backdrop: 'static' },
+                _react2.default.createElement(
+                    _reactBootstrap.Modal.Header,
+                    { closeButton: true },
+                    _react2.default.createElement(
+                        _reactBootstrap.Modal.Title,
+                        null,
+                        'New student'
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactBootstrap.Modal.Body,
+                    null,
+                    _react2.default.createElement(
+                        _reactBootstrap.Form,
+                        { id: 'add-new' },
+                        _react2.default.createElement(
+                            _reactBootstrap.Form.Group,
+                            { controlId: 'exampleForm.ControlInput1' },
+                            _react2.default.createElement(
+                                _reactBootstrap.Form.Label,
+                                null,
+                                'Name'
+                            ),
+                            _react2.default.createElement(_reactBootstrap.Form.Control, { type: 'text', placeholder: 'Enter name', name: 'name', required: true }),
+                            !namevalid && _react2.default.createElement(
+                                _reactBootstrap.Form.Label,
+                                { className: 'validation' },
+                                'This field required'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _reactBootstrap.Form.Group,
+                            { controlId: 'exampleForm.ControlInput1' },
+                            _react2.default.createElement(
+                                _reactBootstrap.Form.Label,
+                                null,
+                                'Address'
+                            ),
+                            _react2.default.createElement(_reactBootstrap.Form.Control, { type: 'text', placeholder: 'Enter address', name: 'address', required: true }),
+                            !addressvalid && _react2.default.createElement(
+                                _reactBootstrap.Form.Label,
+                                { className: 'validation' },
+                                'This field required'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _reactBootstrap.Form.Group,
+                            { controlId: 'formBasicRadio' },
+                            _react2.default.createElement(
+                                _reactBootstrap.Form.Label,
+                                null,
+                                'Sex'
+                            ),
+                            _react2.default.createElement(_reactBootstrap.Form.Check, { defaultChecked: true, type: 'radio', name: 'sex', value: 'Male', label: 'Male' }),
+                            _react2.default.createElement(_reactBootstrap.Form.Check, { type: 'radio', name: 'sex', label: 'Female', value: 'Female' })
+                        ),
+                        _react2.default.createElement(
+                            _reactBootstrap.Form.Group,
+                            { controlId: 'exampleForm.ControlInput1' },
+                            _react2.default.createElement(
+                                _reactBootstrap.Form.Label,
+                                null,
+                                'Date of birth'
+                            ),
+                            _react2.default.createElement(
+                                _reactBootstrap.FormLabel,
+                                null,
+                                _react2.default.createElement(_reactDatepicker2.default, { selected: date, onChange: this.handleDateChange, name: 'dateofbirth' })
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactBootstrap.Modal.Footer,
+                    null,
+                    _react2.default.createElement(
+                        _reactBootstrap.Button,
+                        { variant: 'secondary', onClick: function onClick() {
+                                return _this2.onSave();
+                            } },
+                        'Close'
+                    ),
+                    _react2.default.createElement(
+                        _reactBootstrap.Button,
+                        { variant: 'primary', onClick: function onClick() {
+                                return _this2.onSave();
+                            } },
+                        'Save changes'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return AddNew;
+}(_react2.default.Component);
+
+exports.default = AddNew;
+
+/***/ }),
+
 /***/ "./src/App.jsx":
 /*!*********************!*\
   !*** ./src/App.jsx ***!
@@ -186,116 +393,6 @@ _reactDom2.default.render(_react2.default.createElement(_Layout2.default, null),
 
 /***/ }),
 
-/***/ "./src/Div1.jsx":
-/*!**********************!*\
-  !*** ./src/Div1.jsx ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Div1 = function (_React$Component) {
-    _inherits(Div1, _React$Component);
-
-    function Div1() {
-        _classCallCheck(this, Div1);
-
-        return _possibleConstructorReturn(this, (Div1.__proto__ || Object.getPrototypeOf(Div1)).apply(this, arguments));
-    }
-
-    _createClass(Div1, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                'DIV1_Update'
-            );
-        }
-    }]);
-
-    return Div1;
-}(_react2.default.Component);
-
-exports.default = Div1;
-
-/***/ }),
-
-/***/ "./src/Div2.jsx":
-/*!**********************!*\
-  !*** ./src/Div2.jsx ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Div2 = function (_React$Component) {
-    _inherits(Div2, _React$Component);
-
-    function Div2() {
-        _classCallCheck(this, Div2);
-
-        return _possibleConstructorReturn(this, (Div2.__proto__ || Object.getPrototypeOf(Div2)).apply(this, arguments));
-    }
-
-    _createClass(Div2, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                'DIV2'
-            );
-        }
-    }]);
-
-    return Div2;
-}(_react2.default.Component);
-
-exports.default = Div2;
-
-/***/ }),
-
 /***/ "./src/Header.jsx":
 /*!************************!*\
   !*** ./src/Header.jsx ***!
@@ -310,53 +407,74 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _reactRouterBootstrap = __webpack_require__(/*! react-router-bootstrap */ "./node_modules/react-router-bootstrap/lib/index.js");
+var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
 
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _AddNew = __webpack_require__(/*! ./AddNew.jsx */ "./src/AddNew.jsx");
+
+var _AddNew2 = _interopRequireDefault(_AddNew);
+
+var _uuid = __webpack_require__(/*! uuid */ "./node_modules/uuid/index.js");
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Header = function Header() {
-    return _react2.default.createElement(
-        _reactBootstrap.Navbar,
-        { fluid: true },
-        _react2.default.createElement(
-            _reactBootstrap.Navbar.Header,
-            null,
-            _react2.default.createElement(
-                _reactBootstrap.Navbar.Brand,
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Header = function (_React$Component) {
+    _inherits(Header, _React$Component);
+
+    function Header() {
+        _classCallCheck(this, Header);
+
+        var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this));
+
+        _this.activeModal = function () {
+            _this.setState({
+                canAdd: true
+            }, function () {
+                return console.log('Active model');
+            });
+        };
+
+        _this.state = {
+            canAdd: false
+        };
+
+        return _this;
+    }
+
+    _createClass(Header, [{
+        key: 'render',
+        value: function render() {
+            var canAdd = this.state.canAdd;
+            var activeModal = this.activeModal;
+
+            return _react2.default.createElement(
+                _react2.default.Fragment,
                 null,
-                'Issue Tracker'
-            )
-        ),
-        _react2.default.createElement(
-            _reactBootstrap.Nav,
-            null,
-            _react2.default.createElement(
-                _reactRouterBootstrap.LinkContainer,
-                { to: '/issues' },
                 _react2.default.createElement(
-                    _reactBootstrap.NavItem,
-                    null,
-                    'Issues'
-                )
-            ),
-            _react2.default.createElement(
-                _reactRouterBootstrap.LinkContainer,
-                { to: '/reports' },
-                _react2.default.createElement(
-                    _reactBootstrap.NavItem,
-                    null,
-                    'Reports'
-                )
-            )
-        )
-    );
-};
+                    _reactBootstrap.Button,
+                    { variant: 'success', active: true, onClick: activeModal },
+                    'Add'
+                ),
+                canAdd && _react2.default.createElement(_AddNew2.default, { key: _uuid2.default.v4() })
+            );
+        }
+    }]);
+
+    return Header;
+}(_react2.default.Component);
 
 exports.default = Header;
 
@@ -381,14 +499,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _Div = __webpack_require__(/*! ./Div1.jsx */ "./src/Div1.jsx");
-
-var _Div2 = _interopRequireDefault(_Div);
-
-var _Div3 = __webpack_require__(/*! ./Div2.jsx */ "./src/Div2.jsx");
-
-var _Div4 = _interopRequireDefault(_Div3);
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
 
@@ -419,13 +529,7 @@ var Layout = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'container-fluid' },
-                _react2.default.createElement(_Div2.default, null),
-                _react2.default.createElement(_Div4.default, null),
-                _react2.default.createElement(
-                    _reactBootstrap.Button,
-                    null,
-                    'ABc'
-                )
+                _react2.default.createElement(_Header2.default, null)
             );
         }
     }]);
