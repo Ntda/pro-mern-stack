@@ -5,9 +5,8 @@ import 'react-table-hoc-fixed-columns/lib/styles.css' // important: this line mu
 import columnFixedConst from './ColumnConst.jsx';
 import "react-table/react-table.css";
 import '../css/Table.css';
-import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 const ReactTableFixedColumns = withFixedColumns(ReactTable);
 
@@ -31,7 +30,7 @@ class Table extends React.Component {
                         <FontAwesomeIcon icon={faEye} />
                     </span>
                     <span className='action'>
-                        <FontAwesomeIcon icon={faEdit}/>
+                        <FontAwesomeIcon icon={faPencilAlt}/>
                     </span>
                     <span className='action'>
                         <FontAwesomeIcon icon={faTrash}/>
@@ -68,7 +67,7 @@ class Table extends React.Component {
     renderFixedSubColumn = (subcolumn) => {
         const subcolumnfixed = subcolumn.map(col => {
             return {
-                Header: info => <span className='custom-subcolumn-info'>{col.name}</span>,
+                Header: () => <span className='custom-subcolumn-info'>{col.name}</span>,
                 accessor: col.name,
                 width: 200,
                 Cell: this.renderInfo
@@ -84,7 +83,6 @@ class Table extends React.Component {
                 data={data}
                 minRows={3}
                 columns={this.renderFixedColumn()}
-                resizable={false}
                 sortable={false}
             />
         );

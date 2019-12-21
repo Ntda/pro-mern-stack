@@ -3,6 +3,7 @@ import { Modal, Button, Form, FormLabel } from 'react-bootstrap'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Service from './Service.jsx';
+import '../css/AddNew.css';
 
 class AddNew extends React.Component {
     constructor() {
@@ -24,82 +25,74 @@ class AddNew extends React.Component {
     }
 
     render() {
-        const { date, namevalid, addressvalid } = this.state;
+        const { date } = this.state;
         return (
             <Modal
                 show={this.state.show}
-                onHide={() => this.onSave()}
+                onHide={e => this.onSave(e)}
                 centered
                 size='lg'
+                onSubmit={e => this.onSave(e)}
                 backdrop='static'>
+
                 <Modal.Header closeButton>
                     <Modal.Title>New student</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form id='add-new'>
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group>
                             <Form.Label>Name</Form.Label>
                             <Form.Control type="text" placeholder='Enter name' name='name' required />
-                            {
-                                !namevalid && <Form.Label className='validation'>This field required</Form.Label>
-                            }
                         </Form.Group>
-
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group>
                             <Form.Label>Address</Form.Label>
                             <Form.Control type="text" placeholder='Enter address' name='address' required />
-                            {
-                                !addressvalid && <Form.Label className='validation'>This field required</Form.Label>
-                            }
                         </Form.Group>
-                        <Form.Group controlId="formBasicRadio">
+                        <Form.Group>
                             <Form.Label>Sex</Form.Label>
                             <Form.Check defaultChecked type="radio" name="sex" value='Male' label='Male' />
                             <Form.Check type="radio" name="sex" label='Female' value='Female' />
                         </Form.Group>
-                        <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Group>
                             <Form.Label>Date of birth</Form.Label>
-                            <FormLabel>
-                                <DatePicker selected={date} onChange={this.handleDateChange} name='dateofbirth' />
-                            </FormLabel>
+                            <DatePicker required selected={date} onChange={this.handleDateChange} name='dateofbirth' />
                         </Form.Group>
+                        <Modal.Footer>
+                                <Button variant="secondary" onClick={(e) => this.onSave(e)}>Cancel</Button>
+                                <Button type="submit" variant="primary">Save changes</Button>
+                            </Modal.Footer>
                     </Form>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={(e) => this.onSave(e)}>Close</Button>
-                    <Button variant="primary" onClick={(e) => this.onSave(e)}>Save changes</Button>
-                </Modal.Footer>
             </Modal>
-        )
-    }
-
+                )
+            }
+        
     onSave = (e) => {
-        e.preventDefault();
         const elements = document
-            .getElementById('add-new')
-            .elements;
-        const Name = elements.name.value;
-        const Address = elements.address.value;
-        let sex;
+                    .getElementById('add-new')
+                    .elements;
+                const Name = elements.name.value;
+                const Address = elements.address.value;
+                let sex;
         for (let i = 0; i < elements.sex.length; i++) {
             if (elements.sex[i].checked) {
-                sex = elements.sex[i].value;
+                    sex = elements.sex[i].value;
                 break;
             }
         }
         const Dob = elements.dateofbirth.value;
         const model = {
-            Name,
-            Address,
-            sex,
-            Dob
-        };
-        this.setState({ show: false }, () => {
-            Service.createNew(model);
-            this.props.onAddNew(model);
-        })
-
+                    Name,
+                    Address,
+                    sex,
+                    Dob
+                };
+        this.setState({show: false }, () => {
+                    Service.createNew(model);
+                this.props.onAddNew(model);
+            })
+    
+        }
     }
-}
-
+    
 export default AddNew;
