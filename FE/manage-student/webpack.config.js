@@ -8,7 +8,8 @@ module.exports = {
             'react-dom',
             'react-bootstrap',
             'react-router-bootstrap',
-            'react-datepicker'
+            'react-datepicker',
+            'react-table'
         ]
     },
     output: {

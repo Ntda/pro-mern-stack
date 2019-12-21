@@ -9,7 +9,11 @@ class Header extends React.Component {
         this.state = {
             canAdd: false
         };
-        
+        this.handleAddNew = this.handleAddNew.bind(this);
+    }
+
+    handleAddNew = model => {
+        this.setState({canAdd:false},this.props.onAddNew(model))
     }
 
     activeModal = () => {
@@ -26,7 +30,7 @@ class Header extends React.Component {
         return (
             <React.Fragment>
                 <Button variant="success" active onClick={activeModal}>Add</Button>
-                {canAdd && <AddNew key={uuid.v4()}/>}
+                {canAdd && <AddNew key={uuid()} onAddNew={this.handleAddNew} />}
             </React.Fragment>
         )
     }

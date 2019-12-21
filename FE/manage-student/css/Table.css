@@ -1,0 +1,13 @@
+.rthfc-th-fixed-left  {
+    left: 0px;
+}
+.action{
+    padding-right: 3px;
+    padding-left: 3px;
+    text-align: center;
+}
+
+.action:hover{
+    border-radius: 100%;
+    background: gray;
+}

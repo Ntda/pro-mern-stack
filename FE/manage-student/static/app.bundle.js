@@ -187,6 +187,14 @@ var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Service = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './Service'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _Service2 = _interopRequireDefault(_Service);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -209,7 +217,8 @@ var AddNew = function (_React$Component) {
             });
         };
 
-        _this.onSave = function () {
+        _this.onSave = function (e) {
+            e.preventDefault();
             var elements = document.getElementById('add-new').elements;
             var name = elements.name.value;
             var address = elements.address.value;
@@ -227,7 +236,8 @@ var AddNew = function (_React$Component) {
                 sex: sex,
                 date: date
             };
-            _axios2.default.post('http://localhost:3000/api/add-new', { model: model });
+            _Service2.default.createNew(model);
+            _this.props.onAddNew(model);
         };
 
         _this.state = {
@@ -338,15 +348,15 @@ var AddNew = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         _reactBootstrap.Button,
-                        { variant: 'secondary', onClick: function onClick() {
-                                return _this2.onSave();
+                        { variant: 'secondary', onClick: function onClick(e) {
+                                return _this2.onSave(e);
                             } },
                         'Close'
                     ),
                     _react2.default.createElement(
                         _reactBootstrap.Button,
-                        { variant: 'primary', onClick: function onClick() {
-                                return _this2.onSave();
+                        { variant: 'primary', onClick: function onClick(e) {
+                                return _this2.onSave(e);
                             } },
                         'Save changes'
                     )
@@ -439,6 +449,10 @@ var Header = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this));
 
+        _this.handleAddNew = function (model) {
+            _this.props.onAddNew(model);
+        };
+
         _this.activeModal = function () {
             _this.setState({
                 canAdd: true
@@ -450,7 +464,7 @@ var Header = function (_React$Component) {
         _this.state = {
             canAdd: false
         };
-
+        _this.handleAddNew = _this.handleAddNew.bind(_this);
         return _this;
     }
 
@@ -468,7 +482,7 @@ var Header = function (_React$Component) {
                     { variant: 'success', active: true, onClick: activeModal },
                     'Add'
                 ),
-                canAdd && _react2.default.createElement(_AddNew2.default, { key: _uuid2.default.v4() })
+                canAdd && _react2.default.createElement(_AddNew2.default, { key: _uuid2.default.v4(), onAddNew: this.handleAddNew })
             );
         }
     }]);

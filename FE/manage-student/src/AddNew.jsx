@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Form, FormLabel } from 'react-bootstrap'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';
+import Service from './Service.jsx';
 
 class AddNew extends React.Component {
     constructor() {
@@ -78,8 +78,8 @@ class AddNew extends React.Component {
         const elements = document
             .getElementById('add-new')
             .elements;
-        const name = elements.name.value;
-        const address = elements.address.value;
+        const Name = elements.name.value;
+        const Address = elements.address.value;
         let sex;
         for (let i = 0; i < elements.sex.length; i++) {
             if (elements.sex[i].checked) {
@@ -87,17 +87,18 @@ class AddNew extends React.Component {
                 break;
             }
         }
-        const date = elements.dateofbirth.value;
-        const model={
-            name,
-            address,
+        const Dob = elements.dateofbirth.value;
+        const model = {
+            Name,
+            Address,
             sex,
-            date
+            Dob
         };
-        axios.post('http://localhost:3000/api/add-new',{model})
-            .then(res=>{
-                console.log(res);
-            })
+        this.setState({ show: false }, () => {
+            Service.createNew(model);
+            this.props.onAddNew(model);
+        })
+
     }
 }
 
