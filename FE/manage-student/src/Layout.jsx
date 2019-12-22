@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from './Header.jsx';
 import Table from './Table.jsx';
-import axios from 'axios';
 import Service from './Service.jsx';
 import MappingHelper from './MappingHelper.jsx';
 
